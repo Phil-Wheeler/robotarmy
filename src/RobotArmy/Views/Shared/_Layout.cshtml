@@ -1,0 +1,81 @@
+﻿<html>
+<head>
+    <title>Robot Army</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="A fun, interactive introduction to programming and robotics for kids of all ages" />
+    <meta name="keywords" content="edison,robots,programming,learning,classroom,exercises,coding,robotics" />
+
+    <meta name="author" content="Phil Wheeler" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.3/foundation.min.css">
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+    <base href="/" />
+</head>
+<body ng-app="RobotArmy">
+
+    <!-- Header -->
+
+    <header id="header">
+        <div class="inner">
+            <a href="index.html" class="logo">Robot Army</a>
+            <nav id="nav">
+                <a asp-action="Index" asp-controller="Home">Home</a>
+                <a href="generic.html">Generic</a>
+                <a asp-action="About" asp-controller="Home">About</a>
+            </nav>
+            <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+        </div>
+    </header>
+    <!--await Html.PartialAsync("_LoginPartial")-->
+
+    @RenderBody()
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <div class="flex">
+                <div class="copyright">
+                    &copy; 2016 <a href="https://wheeler.kiwi.nz" target="_blank">Phil Wheeler</a>. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+                </div>
+                <ul class="icons">
+                    <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="#" class="icon fa-stackoverflow"><span class="label">linkedIn</span></a></li>
+                    <li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
+                    <li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"
+            integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/foundation/6.2.3/foundation.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.5.8/angular-route.min.js"></script>
+
+    <script src="~/js/utility/utility.js"></script>
+    <script src="~/js/app.js"></script>
+
+    <script src="~/js/utility/config.js"></script>
+@*    <script src="~/js/utility/date-filter.js"></script>*@
+
+    <!-- models -->
+    @*<script src="~/js/models/game-model.js"></script>
+    <script src="~/js/models/army.js"></script>
+
+    <!-- services -->
+    <script src="~/js/services/robot.js"></script>
+
+    <!-- controllers -->
+    <script src="~/js/controllers/robot.js"></script>*@
+
+
+    @RenderSection("Scripts", false)
+</body>
+</html>

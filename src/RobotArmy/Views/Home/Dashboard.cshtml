@@ -1,0 +1,113 @@
+
+
+<section class="wrapper" ng-controller="robots_controller">
+    <div class="inner row">
+
+        <div class="large-6 medium-6 columns">
+            <h2>Dashboard</h2>
+
+            <h4>Your Armies</h4>
+            <div class="table-wrapper">
+                <table class="alt">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Robots</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="army in armies">
+                            <td>{{army.Name}}</td>
+                            <td>{{army.Robots.length}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr ng-show="adding">
+                            <th colspan="2">
+                                <div class="input-group">
+                                    <input class="input-group-field" type="text" placeholder="Army Name" ng-model="newName">
+                                    <div class="input-group-button">
+                                        <input type="button" class="button" value="Save" ng-click="Create()">
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                <button class="button special" ng-click="Add()">Add an army</button>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="large-6 medium-6 columns">
+
+            <h2>Everything else</h2>
+
+
+        </div>
+    </div>
+</section>
+
+
+@section Scripts
+{
+    <script src="~/js/models/army.js"></script>
+    @*<script src="~/js/services/robot.js"></script>
+    <script src="~/js/controllers/robot.js"></script>*@
+
+    <script>
+        (function () {
+            'use strict';
+
+            angular
+                .module('RobotArmy', [])
+                .controller('robots_controller', robots_controller);
+
+            robots_controller.$inject = ['$location', '$scope', '$http', '$element'];
+
+            function robots_controller($location, $scope, $http, $element) {
+
+                $scope.robots = [];
+                $scope.army = {};
+                $scope.armies = [];
+                $scope.adding = false;
+                $scope.newName = '';
+
+                $scope.Get = function () {
+                    $http.get('/api/armies').success(function (data, status, headers, config) {
+                        $scope.armies = data;
+                    });
+                }
+
+                $scope.Create = function () {
+                    var army = Models.Army.createEmpty();
+                    army.Name = $scope.newName;
+
+                    $http.post('/api/armies/', { value: army }).success(function (data, status, headers, config) {
+                        $scope.armies.push(data);
+                        $scope.army = data;
+                        $scope.newName = '';
+                        $scope.adding = false;
+                    })
+                }
+
+                $scope.Select = function (id) {
+                    $http.get('/api/armies/' + id).success(function (data, status, headers, config) {
+                        $scope.selectedTeam = data;
+                    })
+                }
+
+                $scope.Add = function () {
+                    $scope.adding = true;
+                    console.info($scope.adding);
+                }
+
+                $scope.Get();
+
+            }
+        })();
+    </script>
+}
