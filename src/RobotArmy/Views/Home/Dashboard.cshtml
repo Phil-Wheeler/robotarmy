@@ -17,15 +17,15 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="army in armies">
-                            <td>{{army.Name}}</td>
-                            <td>{{army.Robots.length}}</td>
+                            <td>{{army.name}}</td>
+                            <td>{{army.robots.length}}</td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr ng-show="adding">
                             <th colspan="2">
                                 <div class="input-group">
-                                    <input class="input-group-field" type="text" placeholder="Army Name" ng-model="newName">
+                                    <input class="input-group-field" name="name" type="text" placeholder="Army Name" ng-model="newName">
                                     <div class="input-group-button">
                                         <input type="button" class="button" value="Save" ng-click="Create()">
                                     </div>
@@ -46,6 +46,10 @@
 
             <h2>Everything else</h2>
 
+            <form class="task-form" ng-submit="save_task()">
+                <input type="text" placeholder="Task name" />
+                <button value="Save Task"></button>
+            </form>
 
         </div>
     </div>
@@ -86,12 +90,16 @@
                     var army = Models.Army.createEmpty();
                     army.Name = $scope.newName;
 
-                    $http.post('/api/armies/', { value: army }).success(function (data, status, headers, config) {
+                    console.info(army);
+
+                    $http.post('/api/armies/', { army: army }).success(function (data, status, headers, config) {
                         $scope.armies.push(data);
                         $scope.army = data;
                         $scope.newName = '';
                         $scope.adding = false;
                     })
+
+                    // "{  "value": {    "Id": "8daac9fa-aeec-4bdb-a6cf-5a3cd08b248c",    "Name": "Phil's Test Army",    "Owner": "",    "Robots": []  }}"
                 }
 
                 $scope.Select = function (id) {

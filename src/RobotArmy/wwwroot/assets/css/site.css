@@ -47,3 +47,11 @@ nav a { color: rgb(212, 224, 239); transition: color 0.2s ease-in-out; padding: 
 
 /* ====== FOUNDATION OVERRIDES ====== */
 .top-bar, .top-bar ul { background-color: transparent; }
+
+.keyframe-test:hover { animation-duration: 3s; animation-name: slideIn; transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; }
+
+@keyframes slidein {
+    from { transform: rotate(0deg); }
+
+    to { transform: rotate(180deg); }
+}

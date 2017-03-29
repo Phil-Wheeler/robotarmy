@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -13,8 +10,6 @@ using Microsoft.Extensions.Logging;
 using RobotArmy.Data;
 using RobotArmy.Models;
 using RobotArmy.Services;
-
-using Npgsql;
 
 namespace RobotArmy
 {
@@ -80,6 +75,15 @@ namespace RobotArmy
             loggerFactory.AddDebug();
 
             app.UseStaticFiles();
+
+            app.UseXfo(options => options.SameOrigin());
+
+            app.UseCsp(options => options
+                .DefaultSources(s => s.Self())
+                .ScriptSources(s => s.Self().CustomSources("cdn.jsdelivr.net"))
+                .FrameSources(s => s.None())
+            );
+
             app.UseIdentity();
             app.UseMvc(routes =>
             {
@@ -87,7 +91,6 @@ namespace RobotArmy
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
 
         }
     }

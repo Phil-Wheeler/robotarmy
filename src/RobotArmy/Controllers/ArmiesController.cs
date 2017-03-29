@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using RobotArmy.Data;
 using RobotArmy.Models;
 using System.Net;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace RobotArmy.Controllers
 {
@@ -42,16 +44,18 @@ namespace RobotArmy.Controllers
 
         // POST: api/Training
         [HttpPost]
-        public Army Post(Army value)
+        public Army Post([FromBody]object army)
         {
-            value.Owner = Guid.Parse(User.Identity.GetUserId());
-            value.Robots = new List<Robot>();
+            JObject obj = JsonConvert.DeserializeObject<JObject>(army.ToString());
+            Army anArmy = obj.Root.First.Value<JToken>().First.ToObject<Army>();
 
-            _context.Armies.Add(value);
+            anArmy.Owner = Guid.Parse(User.Identity.GetUserId());
+
+            _context.Armies.Add(anArmy);
             _context.SaveChanges();
 
-            //HttpContext.Response.StatusCode = (int) HttpStatusCode.NoContent;
-            return value;
+            HttpContext.Response.StatusCode = (int) HttpStatusCode.NoContent;
+            return anArmy;
         }
 
         // PUT: api/Training/5

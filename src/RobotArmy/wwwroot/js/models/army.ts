@@ -14,12 +14,12 @@ module Models {
             this.Robots = army.Robots;
         }
 
-        public isEmpty = (): boolean => {
-            return (this.Id === '-1' || this.Id === '00000000-0000-0000-0000-000000000000');
-        }
+        //public isEmpty = (): boolean => {
+        //    return (this.Id === '-1' || this.Id === '00000000-0000-0000-0000-000000000000');
+        //}
 
         public static createEmpty = (): Models.Army => {
-            var army = { Id: Utility.GuidBuilder.New(), Name: '', Owner: '', Robots: [] };
+            var army = { Id: Utility.GuidBuilder.New(), Name: '', Owner: Utility.GuidBuilder.New(), Robots: [] };
             return new Models.Army(army);
         }
     }
